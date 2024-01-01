@@ -2,6 +2,7 @@
 
 This is a weather dashboard application that allows users to see the weather outlook for multiple cities. Users can plan their trips accordingly based on the weather forecast.
 
+[Weather Dashboard](images/weather.PNG)
 
 ## Table of Contents
 
@@ -104,3 +105,5 @@ The application needed to dynamically update the HTML and CSS to display the ret
 ## License
 
 This project is licensed under the MIT License.
+
+[Weather Dashboard Link](https://dann9109.github.io/weatherdashboard/) 
