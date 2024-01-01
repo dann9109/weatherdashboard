@@ -5,6 +5,7 @@ var apiKey = 'b5a303b9ff94cae04c5fa73b6c489333';
 var currentURL = `https://api.openweathermap.org/data/2.5/weather?appid=${apiKey}&units=imperial`;
 var forecastURL = `https://api.openweathermap.org/data/2.5/forecast?appid=${apiKey}&units=imperial`;
 
+
 function getSearchHistory() {
     var rawData = localStorage.getItem('search-history');
     var history = JSON.parse(rawData) || [];
@@ -18,8 +19,19 @@ function getCurrentForecast() {
     if (!history.includes(cityName)) {
         history.push(cityName);
         localStorage.setItem('search-history', JSON.stringify(history));
+        createCityButton(cityName);
     }
+    function createCityButton(cityName) {
+        var searchHistoryContainer = document.getElementById('search-history');
+        var cityButton = document.createElement('button');
+        cityButton.textContent = cityName;
+        searchHistoryContainer.appendChild(cityButton);
 
+        // Add an event listener to the city button
+        cityButton.addEventListener('click', function () {
+            getCurrentForecast(cityName);
+        });
+    }
     // Make a request for current weather using the URL and inject the city name value at the end
     $.get(currentURL + '&q=' + cityName)
         .then(function (data) {
@@ -100,3 +112,4 @@ $('.history').on('click', 'button', function () {
     var cityName = $(this).text();
     getCurrentForecast(cityName);
 });
+
