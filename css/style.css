@@ -68,6 +68,7 @@ body {
 }
 
 
+
 .forecast-cards {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -80,34 +81,35 @@ body {
 
 .forecast-card {
     padding: 10px;
+}
 
-    .forecast-card p {
-        margin-bottom: 5px;
-    }
+.forecast-card p {
+    margin-bottom: 5px;
+}
 
-    /* styles for search history section */
-    .history {
-        text-align: center;
-        font-size: 16px;
-        color: #888;
-        margin-top: 20px;
-    }
+/* styles for search history section */
+.history {
+    text-align: center;
+    font-size: 16px;
+    color: #888;
+    margin-top: 20px;
+}
 
-    .search-history {
-        display: inline-block;
+.search-history {
+    display: inline-block;
 
-    }
+}
 
-    .history button {
-        padding: 5px 10px;
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        margin: 5px;
-        cursor: pointer;
-    }
+.history button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin: 5px;
+    cursor: pointer;
+}
 
-    .history button:hover {
-        background-color: #0056b3;
-    }
+.history button:hover {
+    background-color: #0056b3;
+}
