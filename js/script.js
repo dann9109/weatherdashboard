@@ -12,6 +12,7 @@ function getSearchHistory() {
     return history;
 }
 
+// Function to get the forecast weather
 function getCurrentForecast() {
     var cityName = searchInput.val().trim();
     var history = getSearchHistory();
@@ -21,6 +22,8 @@ function getCurrentForecast() {
         localStorage.setItem('search-history', JSON.stringify(history));
         createCityButton(cityName);
     }
+
+    // Function to create a city button in the search history
     function createCityButton(cityName) {
         var searchHistoryContainer = document.getElementById('search-history');
         var cityButton = document.createElement('button');
@@ -47,6 +50,7 @@ function getCurrentForecast() {
         });
 }
 
+// Function to update the current weather section
 function getForecastWeather(cityName) {
     $.get(forecastURL + '&q=' + cityName)
         .then(function (data) {
@@ -105,9 +109,10 @@ function updateFiveDayForecast(forecastData) {
         forecastCardsElement.appendChild(forecastCard);
     });
 }
-
+// Event listener for search button click
 searchBtn.click(getCurrentForecast);
 
+// Event listener for city button click in search history
 $('.history').on('click', 'button', function () {
     var cityName = $(this).text();
     getCurrentForecast(cityName);
