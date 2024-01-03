@@ -13,8 +13,8 @@ function getSearchHistory() {
 }
 
 // Function to get the forecast weather
-function getCurrentForecast() {
-    var cityName = searchInput.val().trim();
+function getCurrentForecast(cityName) {
+    var cityName = typeof cityName === 'string' ? cityName : searchInput.val().trim();
     var history = getSearchHistory();
 
     if (!history.includes(cityName)) {
@@ -23,18 +23,7 @@ function getCurrentForecast() {
         createCityButton(cityName);
     }
 
-    // Function to create a city button in the search history
-    function createCityButton(cityName) {
-        var searchHistoryContainer = document.getElementById('search-history');
-        var cityButton = document.createElement('button');
-        cityButton.textContent = cityName;
-        searchHistoryContainer.appendChild(cityButton);
 
-        // Add an event listener to the city button
-        cityButton.addEventListener('click', function () {
-            getCurrentForecast(cityName);
-        });
-    }
     // Make a request for current weather using the URL and inject the city name value at the end
     $.get(currentURL + '&q=' + cityName)
         .then(function (data) {
@@ -109,11 +98,32 @@ function updateFiveDayForecast(forecastData) {
         forecastCardsElement.appendChild(forecastCard);
     });
 }
+
+
+// Function to create a city button in the search history
+function createCityButton(cityName) {
+    var searchHistoryContainer = document.getElementById('search-history');
+    var cityButton = document.createElement('button');
+    cityButton.textContent = cityName;
+    searchHistoryContainer.appendChild(cityButton);
+
+    // Add an event listener to the city button
+    cityButton.addEventListener('click', function () {
+        getCurrentForecast(cityName);
+    });
+}
+
+function createHistoryButtons() {
+    var history = getSearchHistory();
+    for (var i = 0; i < history.length; i++) {
+        createCityButton(history[i]);
+    }
+}
 // Event listener for search button click
 searchBtn.click(getCurrentForecast);
-
+createHistoryButtons();
 // Event listener for city button click in search history
-$('.history').on('click', 'button', function () {
+$('.search-history').on('click', 'button', function () {
     var cityName = $(this).text();
     getCurrentForecast(cityName);
 });
