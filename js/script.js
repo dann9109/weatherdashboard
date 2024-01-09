@@ -27,12 +27,14 @@ function getCurrentForecast(cityName) {
     // Make a request for current weather using the URL and inject the city name value at the end
     $.get(currentURL + '&q=' + cityName)
         .then(function (data) {
+            console.log(data)
             var weatherData = {
                 city: data.name,
                 date: new Date(data.dt * 1000).toLocaleDateString(),
                 temperature: data.main.temp + '°F',
                 humidity: data.main.humidity + '%',
                 windSpeed: data.wind.speed + 'mph',
+                icon: data.weather[0].icon
             };
             updateCurrentWeather(weatherData);
             getForecastWeather(cityName);
@@ -48,7 +50,7 @@ function getForecastWeather(cityName) {
 
             for (var i = 0; i < blocks.length; i++) {
                 var blockObj = blocks[i];
-
+                console.log(blockObj)
                 // Only work with noon time blocks
                 if (blockObj.dt_txt.includes('12:00')) {
                     var forecastDay = {
@@ -56,7 +58,9 @@ function getForecastWeather(cityName) {
                         temperature: blockObj.main.temp + '°F',
                         humidity: blockObj.main.humidity + '%',
                         windSpeed: blockObj.wind.speed + 'mph',
+                        icon: `https://openweathermap.org/img/wn/${blockObj.weather[0].icon}.png`
                     };
+                    // console.log(forecastDay)
                     forecastData.push(forecastDay);
                 }
             }
@@ -78,6 +82,7 @@ function updateCurrentWeather(weatherData) {
     <p>Humidity: ${weatherData.humidity}</p>
     <hr>
     <p>Wind Speed: ${weatherData.windSpeed}</p>
+    <img src="https://openweathermap.org/img/wn/${weatherData.icon}.png" alt="Weather Icon">
   `;
 }
 
@@ -94,7 +99,8 @@ function updateFiveDayForecast(forecastData) {
       <p>Temperature: ${day.temperature}</p>
       <p>Humidity: ${day.humidity}</p>
       <p>Wind Speed: ${day.windSpeed}</p>
-    `;
+      <img src="${day.icon}">
+        `;
         forecastCardsElement.appendChild(forecastCard);
     });
 }
